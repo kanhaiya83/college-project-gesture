@@ -198,7 +198,7 @@ export default function Home() {
         </div>
         <div class="flex-[2] bg-[#191919] rounded-3xl">
           <div class="flex flex-col items-center gap-4 py-6 w-full">
-            <h2 class="text-2xl font-medium">Pose the current Letter</h2>
+            <h2 class="text-2xl font-medium">{loader ?"Show your hands to start" :"Pose the current Letter"}</h2>
             <Image src="" alt="" className="w-[50%]" id="emoji-image" />
           </div>
         </div>
