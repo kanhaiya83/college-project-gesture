@@ -200,9 +200,9 @@ const router = useRouter()
         </div>
         <div class="flex-[2] bg-[#191919] rounded-3xl">
           <div class="flex flex-col items-center gap-4 py-6 w-full">
-            <h2 class="text-2xl font-medium">Guess this Letter</h2>
+            <h2 class="text-2xl font-medium">{loader ?"Show your hands to start" :"Guess this Letter"}</h2>
             <h1 id="letter-container" className="text-[10rem]"></h1>
-            <button className="py-2 px-4 rounded-sm text-sm bg-slate-600" onClick={()=>{setHint(true)}}>Show Hint</button>
+            <button className="py-2 px-4 rounded-sm text-sm bg-slate-600" onClick={()=>{setHint(prev=>!prev)}}>{hint ? "Hide Hint": "Show Hint"}</button>
             <Image src="" alt="" className={`w-16 ${!hint && "hidden"}`} id="emoji-image" />
           </div>
         </div>
