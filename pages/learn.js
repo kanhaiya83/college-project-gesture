@@ -111,7 +111,7 @@ export default function Home() {
           Handsigns.zSign,
         ])
 
-        const estimatedGestures = await GE.estimate(hand[0].landmarks, 4.5)
+        const estimatedGestures = await GE.estimate(hand[0].landmarks, 6.5)
        
 
         if (
