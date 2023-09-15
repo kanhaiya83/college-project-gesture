@@ -73,6 +73,7 @@ export default function Home() {
 
       // Make Detections
       const hand = await net.estimateHands(video)
+      setLoader(false)
       console.log(hand.length)
       if (hand.length > 0) {
         //loading the fingerpose model
@@ -108,7 +109,6 @@ export default function Home() {
 
         const estimatedGestures = await GE.estimate(hand[0].landmarks, 6.5)
         
-        setLoader(false)
         if (
           estimatedGestures.gestures !== undefined &&
           estimatedGestures.gestures.length > 0
