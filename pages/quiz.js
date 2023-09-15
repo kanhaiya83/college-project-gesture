@@ -11,6 +11,7 @@ import { Signimage, Signpass } from "../components/handimage"
 import { BallTriangle } from "react-loader-spinner"
 import { useRouter } from "next/router"
 import Image from "next/image"
+import '@tensorflow/tfjs-backend-webgl';
 
 export default function Home() {
   const webcamRef = useRef(null)
@@ -74,7 +75,7 @@ export default function Home() {
 
       // Make Detections
       const hand = await net.estimateHands(video)
-
+console.log(hand.length);
       if (hand.length > 0) {
         //loading the fingerpose model
         const GE = new fp.GestureEstimator([

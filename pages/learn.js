@@ -5,9 +5,10 @@ import Webcam from "react-webcam"
 import { drawHand } from "../components/handposeutil"
 import * as fp from "fingerpose"
 import Handsigns from "../components/handsigns"
-
-
+import '@tensorflow/tfjs-backend-cpu'
 import { Signimage, Signpass } from "../components/handimage"
+import '@tensorflow/tfjs-backend-webgl';
+import '@tensorflow/tfjs-backend-webgl';
 
 
 import { BallTriangle } from "react-loader-spinner"
