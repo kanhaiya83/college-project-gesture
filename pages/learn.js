@@ -114,6 +114,7 @@ export default function Home() {
 
         const estimatedGestures = await GE.estimate(hand[0].landmarks, 6.5)
        
+        setLoader(false)
 
         if (
           estimatedGestures.gestures !== undefined &&
@@ -128,7 +129,6 @@ export default function Home() {
           if (gamestate !== "played") {
             _signList()
             gamestate = "played"
-            setLoader(false)
           } else if (gamestate === "played") {
 
             //looping the sign list

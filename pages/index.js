@@ -4,9 +4,9 @@ import React, { useState } from "react"
 const home = () => {
   return (
     <div class="bg-[#040404] min-h-screen w-full px-[10%] text-white flex flex-col justify-center items-center">
-      <h1 class="text-[10rem] font-semibold leading-none mb-4">Gesture</h1>
+      <h1 class="text-[4rem] md:text-[4rem] lg:text-[10rem] font-semibold leading-none mb-4">Gesture</h1>
       <p class="text-slate-300 mb-12">A Sign Language Learning Platform</p>
-      <div class="grid grid-cols-2 gap-4 max-w-4xl mx-auto ">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto ">
         <Card color={"#F7B338"} data={{btnText:"Learn Now!!",heading:"Learn Alphabets and Numbers!!",link:"/learn"}} />
         <Card color={"#52CB63"} data={{btnText:"Join Now!!",heading:"Take Quiz!!",link:"/quiz"}}  />
         <Card color={"#E44803"} data={{disabled:true,heading:"Learn Phrases!!",link:"#"}} />

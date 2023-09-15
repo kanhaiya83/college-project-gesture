@@ -4,14 +4,14 @@ import Webcam from "react-webcam"
 import { drawHand } from "../components/handposeutil"
 import * as fp from "fingerpose"
 import Handsigns from "../components/handsigns"
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast"
 
-import { Signimage, Signpass } from "../components/handimage" 
+import { Signimage, Signpass } from "../components/handimage"
 
 import { BallTriangle } from "react-loader-spinner"
 import { useRouter } from "next/router"
 import Image from "next/image"
-import '@tensorflow/tfjs-backend-webgl';
+import "@tensorflow/tfjs-backend-webgl"
 
 export default function Home() {
   const webcamRef = useRef(null)
@@ -20,12 +20,10 @@ export default function Home() {
   const [hint, setHint] = useState(false)
   const [camState, setCamState] = useState("on")
 
-
   let signList = []
   let currentSign = 0
 
   let gamestate = "started"
-
 
   async function runHandpose() {
     const net = await handpose.load()
@@ -49,7 +47,7 @@ export default function Home() {
   }
 
   function generateSigns() {
-    const password = shuffle(Signpass).slice(0,10)
+    const password = shuffle(Signpass).slice(0, 10)
     return password
   }
 
@@ -75,7 +73,7 @@ export default function Home() {
 
       // Make Detections
       const hand = await net.estimateHands(video)
-console.log(hand.length);
+      console.log(hand.length)
       if (hand.length > 0) {
         //loading the fingerpose model
         const GE = new fp.GestureEstimator([
@@ -109,7 +107,8 @@ console.log(hand.length);
         ])
 
         const estimatedGestures = await GE.estimate(hand[0].landmarks, 6.5)
-      
+        
+        setLoader(false)
         if (
           estimatedGestures.gestures !== undefined &&
           estimatedGestures.gestures.length > 0
@@ -123,7 +122,6 @@ console.log(hand.length);
           if (gamestate !== "played") {
             _signList()
             gamestate = "played"
-            setLoader(false)
             // document.querySelector(".tutor-text").innerText =
             //   "make a hand gesture based on letter shown below"
           } else if (gamestate === "played") {
@@ -136,19 +134,18 @@ console.log(hand.length);
               return
             }
 
-            
             //game play state
 
             if (
               typeof signList[currentSign].src.src === "string" ||
               signList[currentSign].src.src instanceof String
             ) {
-              document
-                .getElementById("letter-container").textContent = signList[currentSign].alt
+              document.getElementById("letter-container").textContent =
+                signList[currentSign].alt
 
               document
-              .getElementById("emoji-image")
-              .setAttribute("src", signList[currentSign].src.src)
+                .getElementById("emoji-image")
+                .setAttribute("src", signList[currentSign].src.src)
 
               if (
                 signList[currentSign].alt ===
@@ -169,19 +166,22 @@ console.log(hand.length);
     }
   }
 
-  
-
   useEffect(() => {
     runHandpose()
   }, [])
-const router = useRouter()
+  const router = useRouter()
   function handleClose() {
     setLoader(true)
     router.push("/")
   }
   return (
     <div class="bg-black min-h-screen md:h-screen pt-8 px-[5%] text-white relative">
-      <button class="bg-red-500 py-2 px-4 text-lg font-medium absolute right-[5%] top-6 rounded-lg" onClick={handleClose}>Close</button>
+      <button
+        class="bg-red-500 py-2 px-4 text-lg font-medium absolute right-[5%] top-6 rounded-lg"
+        onClick={handleClose}
+      >
+        Close
+      </button>
       <h1 class="text-5xl font-semibold text-center mb-12">
         Learn Sign Alphabets
       </h1>
@@ -195,37 +195,50 @@ const router = useRouter()
                 <div id="webcam" background="black"></div>
               )}
               <canvas id="gesture-canvas" ref={canvasRef} style={{}} />
-             
             </div>
           </div>
         </div>
         <div class="flex-[2] bg-[#191919] rounded-3xl">
           <div class="flex flex-col items-center gap-4 py-6 w-full">
-            <h2 class="text-2xl font-medium">{loader ?"Show your hands to start" :"Guess this Letter"}</h2>
+            <h2 class="text-2xl font-medium">
+              {loader ? "Show your hands to start" : "Guess this Letter"}
+            </h2>
             <h1 id="letter-container" className="text-[10rem]"></h1>
-            <button className="py-2 px-4 rounded-sm text-sm bg-slate-600" onClick={()=>{setHint(prev=>!prev)}}>{hint ? "Hide Hint": "Show Hint"}</button>
-            <Image src="" alt="" className={`w-16 ${!hint && "hidden"}`} id="emoji-image" />
+            <button
+              className="py-2 px-4 rounded-sm text-sm bg-slate-600"
+              onClick={() => {
+                setHint(prev => !prev)
+              }}
+            >
+              {hint ? "Hide Hint" : "Show Hint"}
+            </button>
+            <Image
+              src=""
+              alt=""
+              className={`w-16 ${!hint && "hidden"}`}
+              id="emoji-image"
+            />
           </div>
         </div>
       </div>
       <div
-                class={`bg-[#191919] z-100 absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center gap-6 ${
-                  !loader && "hidden"
-                }`}
-              >
-                <BallTriangle
-                  height={200}
-                  width={200}
-                  radius={5}
-                  color="#fff"
-                  ariaLabel="ball-triangle-loading"
-                  wrapperClass={{}}
-                  wrapperStyle=""
-                  visible={true}
-                />
-                <p>Loading...</p>
-              </div>
-              <Toaster/>
+        class={`bg-[#191919] z-100 absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center gap-6 ${
+          !loader && "hidden"
+        }`}
+      >
+        <BallTriangle
+          height={200}
+          width={200}
+          radius={5}
+          color="#fff"
+          ariaLabel="ball-triangle-loading"
+          wrapperClass={{}}
+          wrapperStyle=""
+          visible={true}
+        />
+        <p>Loading...</p>
+      </div>
+      <Toaster />
     </div>
   )
 }
